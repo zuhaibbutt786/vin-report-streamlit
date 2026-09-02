@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/secrets.toml
+data/settings.json
+data/report_history.json
+*.pdf
+.DS_Store
