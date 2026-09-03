@@ -1,6 +1,6 @@
 # VIN Vehicle Report Generator (Streamlit)
 
-Personal tool to decode a VIN using **free NHTSA public APIs**, add your own inspection notes, and download a **professional PDF** report.
+Personal tool to decode a VIN using **free NHTSA public APIs**, add your own inspection notes, download a **professional PDF**, and optionally generate a **very detailed AI inspection Word (.docx)** report via **Groq**.
 
 No Node.js, no npm, no backend server.
 
@@ -12,6 +12,7 @@ No Node.js, no npm, no backend server.
 - Static WMI manufacturer / country lookup
 - Manual inspection fields & condition ratings
 - Professional multi-page PDF (ReportLab)
+- **AI detailed inspection Word report (Groq LLM → .docx)**
 - Local history saved as JSON on disk
 - Branding settings for client PDFs
 
@@ -32,7 +33,8 @@ Missing information does **not** mean the vehicle has a clean history.
 ## Requirements
 
 - Python 3.10+
-- Internet (for NHTSA decode / recalls)
+- Internet (for NHTSA decode / recalls and optional Groq)
+- Optional: free [Groq API key](https://console.groq.com) for AI Word reports
 
 ## Install & run
 
@@ -52,12 +54,15 @@ streamlit run app.py
 
 Browser opens at **http://localhost:8501**
 
+Optional: export `GROQ_API_KEY=gsk_...` so you do not need to paste the key every time.
+
 ## Usage
 
 1. **New VIN Decode** → enter 17-character VIN
 2. Review decoded specs and recalls
 3. **Edit / Inspection** → client name, mileage, condition, notes
 4. **PDF** → Build PDF → Download
+5. **AI Word Report** → paste Groq key (or use env) → Generate → Download `.docx`
 
 ## Project structure
 
@@ -72,7 +77,8 @@ vin-report-streamlit/
 └── utils/
     ├── vin_validate.py
     ├── nhtsa.py           # vPIC + recalls
-    └── pdf_report.py      # ReportLab PDF
+    ├── pdf_report.py      # ReportLab PDF
+    └── groq_inspection.py # Groq narrative + Word (.docx)
 ```
 
 ## Sample VINs
